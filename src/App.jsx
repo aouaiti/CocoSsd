@@ -81,6 +81,18 @@ function App() {
     setTimeout(() => predictionFunction(), 500);
   }
 
+  useEffect(() => {
+    (function () {
+      var s = document.createElement("script");
+      s.src = "https://remotejs.com/agent/agent.js";
+      s.setAttribute(
+        "data-consolejs-channel",
+        "32eb5769-eff2-cd6d-2901-12cfe5bd5c6e"
+      );
+      document.head.appendChild(s);
+    })();
+  }, []);
+
   return (
     <>
       <button

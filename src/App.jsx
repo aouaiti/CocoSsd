@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
 import * as tf from "@tensorflow/tfjs";
 import Webcam from "react-webcam";
@@ -30,7 +30,7 @@ function App() {
     facingMode: "environment",
   };
 
-  async function predictionFunction() {
+  const predictionFunction = useCallback(async () => {
     //Clear the canvas for each prediction
     var cnvs = document.getElementById("myCanvas");
     var ctx = cnvs.getContext("2d");
@@ -46,7 +46,7 @@ function App() {
       console.log(predictions);
       for (let n = 0; n < predictions.length; n++) {
         console.log(n);
-        if (predictions[n].score > 0.8) {
+        if (predictions[n].score > 0.6) {
           //Threshold is 0.8 or 80%
           //Extracting the coordinate and the bounding box information
           let bboxLeft = predictions[n].bbox[0];
@@ -78,8 +78,11 @@ function App() {
       }
     }
     //Rerun prediction by timeout
-    setTimeout(() => predictionFunction(), 500);
-  }
+  }, [model]);
+
+  useEffect(() => {
+    window.requestAnimationFrame(predictionFunction);
+  }, [predictionFunction]);
 
   useEffect(() => {
     (function () {

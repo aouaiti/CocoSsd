@@ -82,7 +82,7 @@ function App() {
 
   useEffect(() => {
     window.requestAnimationFrame(predictionFunction);
-  }, [predictionFunction]);
+  }, []);
 
   useEffect(() => {
     (function () {

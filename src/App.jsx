@@ -30,7 +30,7 @@ function App() {
     facingMode: "environment",
   };
 
-  const predictionFunction = useCallback(async () => {
+  async function predictionFunction() {
     //Clear the canvas for each prediction
     var cnvs = document.getElementById("myCanvas");
     var ctx = cnvs.getContext("2d");
@@ -78,7 +78,7 @@ function App() {
       }
     }
     //Rerun prediction by timeout
-  }, [model]);
+  }
 
   useEffect(() => {
     window.requestAnimationFrame(predictionFunction);

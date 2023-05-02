@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import * as cocoSsd from "@tensorflow-models/coco-ssd";
 import * as tf from "@tensorflow/tfjs";
 import Webcam from "react-webcam";
+import { useAnimationFrame } from "framer-motion";
 
 function App() {
   const [model, setModel] = useState();
@@ -80,9 +81,9 @@ function App() {
     //Rerun prediction by timeout
   }
 
-  useEffect(() => {
-    window.requestAnimationFrame(predictionFunction);
-  }, []);
+  useAnimationFrame(() => {
+    predictionFunction();
+  });
 
   useEffect(() => {
     (function () {
